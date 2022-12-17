@@ -191,7 +191,7 @@ assign: IDENTIFIER ASSIGN math INSTR_END
     Sym* temp=search_ID(strdup($1));
     if(temp==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,$1);
-    if(is_constant(strdup($1)))
+    if(temp!=NULL && is_constant(strdup($1)))
         printf("ERROR !In line %d the variable \"%s\" is a constant, you cannot change it.\n",line_num,$1);
 };
 

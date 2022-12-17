@@ -12,6 +12,7 @@ BOOL function func1
 
     BEGIN
         func_test1 = func_test1 - func_test2;
+        D=5;
         return F;
     END
 

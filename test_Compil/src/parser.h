@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_HOME_MOH_BUREAU_TEST_COMPIL_SRC_PARSER_H_INCLUDED
-# define YY_YY_HOME_MOH_BUREAU_TEST_COMPIL_SRC_PARSER_H_INCLUDED
+#ifndef YY_YY_HOME_RACHID_BUREAU_TP_COMPIL_FINAL_COMPIL_FINAL_TEST_COMPIL_SRC_PARSER_H_INCLUDED
+# define YY_YY_HOME_RACHID_BUREAU_TP_COMPIL_FINAL_COMPIL_FINAL_TEST_COMPIL_SRC_PARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -95,7 +95,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "/home/moh/Bureau/test_Compil/src/parser.y"
+#line 19 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
 
     int u_val_int;
     float u_val_float;
@@ -103,7 +103,7 @@ union YYSTYPE
     char* u_idf;
     char u_op;
 
-#line 107 "/home/moh/Bureau/test_Compil/src/parser.h"
+#line 107 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -118,4 +118,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_HOME_MOH_BUREAU_TEST_COMPIL_SRC_PARSER_H_INCLUDED  */
+#endif /* !YY_YY_HOME_RACHID_BUREAU_TP_COMPIL_FINAL_COMPIL_FINAL_TEST_COMPIL_SRC_PARSER_H_INCLUDED  */
