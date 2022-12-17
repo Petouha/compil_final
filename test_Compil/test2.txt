@@ -6,8 +6,5 @@ VAR
     D = -3.6,  E = 56.36 : CONST FLOAT;
     F:BOOL; 
 BEGIN
-D=5;
-E=8;
-F= false ;
-x=1/0;
+x=yaz/0;
 END

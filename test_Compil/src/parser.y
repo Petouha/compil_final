@@ -9,7 +9,9 @@
     extern char* Curr_Type;
     extern bool Curr_Const;
     extern char* Curr_Scope;
-    int division=0;
+   char division;
+   int save_int;
+   float save_float;
     void yyerror();
     int yylex();
 %}
@@ -103,45 +105,45 @@ math: singletons
     | neg_singletons
     | idf;
 
-singletons: INT_VAL {
-            if(division == 1 && $1 == 0)
+singletons: INT_VAL { save_int=$1;
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-          | INT_VAL ADD singletons
-          | INT_VAL ADD idf
-          | INT_VAL MULT math
-          | INT_VAL DIV math {division=1;};
+          | INT_VAL ADD singletons {save_int=$1;}
+          | INT_VAL ADD idf {save_int=$1;}
+          | INT_VAL MULT math {save_int=$1;}
+          | INT_VAL DIV math {division=$2; save_int=$1;printf("%c\n",division);}
 
-          | FLOAT_VAL {
-            if(division == 1 && $1 == 0)
+          | FLOAT_VAL { save_float=$1;
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-          | FLOAT_VAL ADD singletons
-          | FLOAT_VAL ADD idf
-          | FLOAT_VAL MULT math
-          | FLOAT_VAL DIV math {division=1;};;
+          | FLOAT_VAL ADD singletons {save_float=$1;}
+          | FLOAT_VAL ADD idf {save_float=$1;}
+          | FLOAT_VAL MULT math {save_float=$1;}
+          | FLOAT_VAL DIV math {division=$2;save_float=$1;};
 
 neg_singletons: NEG_INT_VAL {
-            if(division == 1 && $1 == 0)
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-              | NEG_INT_VAL ADD singletons
-              | NEG_INT_VAL ADD idf
-              | NEG_INT_VAL SUB singletons
-              | NEG_INT_VAL SUB idf
-              | NEG_INT_VAL MULT math
-              | NEG_INT_VAL DIV math {division=1;};
+              | NEG_INT_VAL ADD singletons {save_int=$1;}
+              | NEG_INT_VAL ADD idf {save_int=$1;}
+              | NEG_INT_VAL SUB singletons {save_int=$1;}
+              | NEG_INT_VAL SUB idf {save_int=$1;}
+              | NEG_INT_VAL MULT math {save_int=$1;}
+              | NEG_INT_VAL DIV math {division=$2; save_int=$1;}
 
               | NEG_FLOAT_VAL {
-            if(division == 1 && $1 == 0)
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-              | NEG_FLOAT_VAL ADD singletons
-              | NEG_FLOAT_VAL ADD idf
-              | NEG_FLOAT_VAL SUB singletons
-              | NEG_FLOAT_VAL SUB idf
-              | NEG_FLOAT_VAL MULT math
-              | NEG_FLOAT_VAL DIV math {division=1;};
+              | NEG_FLOAT_VAL ADD singletons {save_float=$1;}
+              | NEG_FLOAT_VAL ADD idf {save_float=$1;}
+              | NEG_FLOAT_VAL SUB singletons {save_float=$1;}
+              | NEG_FLOAT_VAL SUB idf {save_float=$1;}
+              | NEG_FLOAT_VAL MULT math {save_float=$1;}
+              | NEG_FLOAT_VAL DIV math {division=$2;save_float=$1;};
 
 
 idf: IDENTIFIER {
@@ -169,7 +171,7 @@ idf: IDENTIFIER {
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,$1);
 }
    | IDENTIFIER DIV math {
-    {division=1;}
+    {}
      if(search_ID(strdup($1))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,$1);
 }

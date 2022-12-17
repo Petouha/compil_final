@@ -79,11 +79,13 @@
     extern char* Curr_Type;
     extern bool Curr_Const;
     extern char* Curr_Scope;
-    int division=0;
+   char division;
+   int save_int;
+   float save_float;
     void yyerror();
     int yylex();
 
-#line 87 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 89 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -561,15 +563,15 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    50,    50,    50,    61,    62,    63,    67,    68,    69,
-      71,    72,    74,    75,    76,    82,    83,    84,    86,    87,
-      88,    89,    90,    91,    92,    93,    94,    95,    97,    98,
-      99,   102,   103,   104,   106,   110,   111,   112,   113,   115,
-     119,   120,   121,   122,   124,   128,   129,   130,   131,   132,
-     133,   135,   139,   140,   141,   142,   143,   144,   147,   151,
-     155,   159,   163,   167,   171,   179,   179,   181,   181,   181,
-     181,   181,   183,   183,   183,   187,   187,   187,   187,   189,
-     198,   200,   204,   204,   206,   206,   208,   208,   208,   208
+       0,    52,    52,    52,    63,    64,    65,    69,    70,    71,
+      73,    74,    76,    77,    78,    84,    85,    86,    88,    89,
+      90,    91,    92,    93,    94,    95,    96,    97,    99,   100,
+     101,   104,   105,   106,   108,   112,   113,   114,   115,   117,
+     121,   122,   123,   124,   126,   130,   131,   132,   133,   134,
+     135,   137,   141,   142,   143,   144,   145,   146,   149,   153,
+     157,   161,   165,   169,   173,   181,   181,   183,   183,   183,
+     183,   183,   185,   185,   185,   189,   189,   189,   189,   191,
+     200,   202,   206,   206,   208,   208,   210,   210,   210,   210
 };
 #endif
 
@@ -1505,251 +1507,347 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* $@1: %empty  */
-#line 50 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 52 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                  {Curr_Scope = "main"; puts("change current scope to main1");}
-#line 1511 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1513 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 3: /* S: LANG IDENTIFIER functions_opt $@1 VAR variables_opt START instructions_opt END  */
-#line 50 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 52 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                                                                                              {printf("yay\n");YYACCEPT;}
-#line 1517 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1519 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 10: /* var_names: IDENTIFIER var_type  */
-#line 71 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 73 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                  {puts((yyvsp[-1].u_idf)); Sym_List_Add((yyvsp[-1].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1523 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1525 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 11: /* var_names: IDENTIFIER SEP var_names  */
-#line 72 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 74 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                     {puts((yyvsp[-2].u_idf)); Sym_List_Add((yyvsp[-2].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1529 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1531 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 12: /* var_type: TYPE_SEP INT INSTR_END  */
-#line 74 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 76 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                  {Curr_Type = "int"; Curr_Const = false;}
-#line 1535 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1537 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 13: /* var_type: TYPE_SEP FLOAT INSTR_END  */
-#line 75 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 77 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                    {Curr_Type = "float"; Curr_Const = false;}
-#line 1541 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1543 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 14: /* var_type: TYPE_SEP BOOL INSTR_END  */
-#line 76 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 78 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                   {Curr_Type = "bool"; Curr_Const = false;}
-#line 1547 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1549 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 18: /* const_names: IDENTIFIER ASSIGN INT_VAL const_type  */
-#line 86 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 88 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-3].u_idf)); Sym_List_Add((yyvsp[-3].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1553 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1555 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 19: /* const_names: IDENTIFIER ASSIGN NEG_INT_VAL const_type  */
-#line 87 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 89 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-3].u_idf)); Sym_List_Add((yyvsp[-3].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1559 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1561 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 20: /* const_names: IDENTIFIER ASSIGN INT_VAL SEP const_names  */
-#line 88 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 90 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-4].u_idf)); Sym_List_Add((yyvsp[-4].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1565 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1567 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 21: /* const_names: IDENTIFIER ASSIGN NEG_INT_VAL SEP const_names  */
-#line 89 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 91 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-4].u_idf)); Sym_List_Add((yyvsp[-4].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1571 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1573 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 22: /* const_names: IDENTIFIER ASSIGN FLOAT_VAL const_type  */
-#line 90 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 92 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-3].u_idf)); Sym_List_Add((yyvsp[-3].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1577 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1579 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 23: /* const_names: IDENTIFIER ASSIGN NEG_FLOAT_VAL const_type  */
-#line 91 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 93 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-3].u_idf)); Sym_List_Add((yyvsp[-3].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1583 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1585 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 24: /* const_names: IDENTIFIER ASSIGN FLOAT_VAL SEP const_names  */
-#line 92 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 94 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-4].u_idf)); Sym_List_Add((yyvsp[-4].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1589 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1591 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 25: /* const_names: IDENTIFIER ASSIGN NEG_FLOAT_VAL SEP const_names  */
-#line 93 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 95 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-4].u_idf)); Sym_List_Add((yyvsp[-4].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1595 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1597 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 26: /* const_names: IDENTIFIER ASSIGN BOOL_VAL const_type  */
-#line 94 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 96 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-3].u_idf)); Sym_List_Add((yyvsp[-3].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1601 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1603 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 27: /* const_names: IDENTIFIER ASSIGN BOOL_VAL SEP const_names  */
-#line 95 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 97 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                                                {puts((yyvsp[-4].u_idf)); Sym_List_Add((yyvsp[-4].u_idf), "idf", Curr_Type, Curr_Const, Curr_Scope, line_num);}
-#line 1607 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1609 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 28: /* const_type: TYPE_SEP CONST INT INSTR_END  */
-#line 97 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 99 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                          {Curr_Type = "int"; Curr_Const = true;}
-#line 1613 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1615 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 29: /* const_type: TYPE_SEP CONST FLOAT INSTR_END  */
-#line 98 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 100 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                            {Curr_Type = "float"; Curr_Const = true;}
-#line 1619 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1621 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 30: /* const_type: TYPE_SEP CONST BOOL INSTR_END  */
-#line 99 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 101 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                           {Curr_Type = "bool"; Curr_Const = true;}
-#line 1625 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1627 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 34: /* singletons: INT_VAL  */
-#line 106 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                    {
-            if(division == 1 && (yyvsp[0].u_val_int) == 0)
+#line 108 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                    { save_int=(yyvsp[0].u_val_int);
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-#line 1634 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1636 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 35: /* singletons: INT_VAL ADD singletons  */
+#line 112 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                   {save_int=(yyvsp[-2].u_val_int);}
+#line 1642 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 36: /* singletons: INT_VAL ADD idf  */
+#line 113 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                            {save_int=(yyvsp[-2].u_val_int);}
+#line 1648 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 37: /* singletons: INT_VAL MULT math  */
+#line 114 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                              {save_int=(yyvsp[-2].u_val_int);}
+#line 1654 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 38: /* singletons: INT_VAL DIV math  */
-#line 113 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                             {division=1;}
-#line 1640 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 115 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                             {division=(yyvsp[-1].u_op); save_int=(yyvsp[-2].u_val_int);printf("%c\n",division);}
+#line 1660 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 39: /* singletons: FLOAT_VAL  */
-#line 115 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                      {
-            if(division == 1 && (yyvsp[0].u_val_float) == 0)
+#line 117 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                      { save_float=(yyvsp[0].u_val_float);
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-#line 1649 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1669 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 40: /* singletons: FLOAT_VAL ADD singletons  */
+#line 121 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                     {save_float=(yyvsp[-2].u_val_float);}
+#line 1675 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 41: /* singletons: FLOAT_VAL ADD idf  */
+#line 122 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                              {save_float=(yyvsp[-2].u_val_float);}
+#line 1681 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 42: /* singletons: FLOAT_VAL MULT math  */
+#line 123 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                {save_float=(yyvsp[-2].u_val_float);}
+#line 1687 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 43: /* singletons: FLOAT_VAL DIV math  */
-#line 122 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                               {division=1;}
-#line 1655 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 124 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                               {division=(yyvsp[-1].u_op);save_float=(yyvsp[-2].u_val_float);}
+#line 1693 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 44: /* neg_singletons: NEG_INT_VAL  */
-#line 124 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 126 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                             {
-            if(division == 1 && (yyvsp[0].u_val_int) == 0)
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-#line 1664 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1702 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 45: /* neg_singletons: NEG_INT_VAL ADD singletons  */
+#line 130 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                           {save_int=(yyvsp[-2].u_val_int);}
+#line 1708 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 46: /* neg_singletons: NEG_INT_VAL ADD idf  */
+#line 131 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                    {save_int=(yyvsp[-2].u_val_int);}
+#line 1714 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 47: /* neg_singletons: NEG_INT_VAL SUB singletons  */
+#line 132 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                           {save_int=(yyvsp[-2].u_val_int);}
+#line 1720 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 48: /* neg_singletons: NEG_INT_VAL SUB idf  */
+#line 133 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                    {save_int=(yyvsp[-2].u_val_int);}
+#line 1726 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 49: /* neg_singletons: NEG_INT_VAL MULT math  */
+#line 134 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                      {save_int=(yyvsp[-2].u_val_int);}
+#line 1732 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 50: /* neg_singletons: NEG_INT_VAL DIV math  */
-#line 133 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                                     {division=1;}
-#line 1670 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 135 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                     {division=(yyvsp[-1].u_op); save_int=(yyvsp[-2].u_val_int);}
+#line 1738 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 51: /* neg_singletons: NEG_FLOAT_VAL  */
-#line 135 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 137 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                               {
-            if(division == 1 && (yyvsp[0].u_val_float) == 0)
+            if(division == '/' && (save_float == 0 || save_int == 0))
                 puts("division par 0");
             }
-#line 1679 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1747 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 52: /* neg_singletons: NEG_FLOAT_VAL ADD singletons  */
+#line 141 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                             {save_float=(yyvsp[-2].u_val_float);}
+#line 1753 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 53: /* neg_singletons: NEG_FLOAT_VAL ADD idf  */
+#line 142 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                      {save_float=(yyvsp[-2].u_val_float);}
+#line 1759 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 54: /* neg_singletons: NEG_FLOAT_VAL SUB singletons  */
+#line 143 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                             {save_float=(yyvsp[-2].u_val_float);}
+#line 1765 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 55: /* neg_singletons: NEG_FLOAT_VAL SUB idf  */
+#line 144 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                      {save_float=(yyvsp[-2].u_val_float);}
+#line 1771 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+    break;
+
+  case 56: /* neg_singletons: NEG_FLOAT_VAL MULT math  */
+#line 145 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                        {save_float=(yyvsp[-2].u_val_float);}
+#line 1777 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 57: /* neg_singletons: NEG_FLOAT_VAL DIV math  */
-#line 144 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
-                                       {division=1;}
-#line 1685 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 146 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+                                       {division=(yyvsp[-1].u_op);save_float=(yyvsp[-2].u_val_float);}
+#line 1783 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 58: /* idf: IDENTIFIER  */
-#line 147 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 149 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                 {
      if(search_ID(strdup((yyvsp[0].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[0].u_idf));
 }
-#line 1694 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1792 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 59: /* idf: IDENTIFIER neg_singletons  */
-#line 151 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 153 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                {
      if(search_ID(strdup((yyvsp[-1].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-1].u_idf));
 }
-#line 1703 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1801 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 60: /* idf: IDENTIFIER SUB idf  */
-#line 155 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 157 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                         {
      if(search_ID(strdup((yyvsp[-2].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-2].u_idf));
 }
-#line 1712 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1810 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 61: /* idf: IDENTIFIER ADD singletons  */
-#line 159 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 161 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                {
      if(search_ID(strdup((yyvsp[-2].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-2].u_idf));
 }
-#line 1721 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1819 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 62: /* idf: IDENTIFIER ADD idf  */
-#line 163 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 165 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                         {
      if(search_ID(strdup((yyvsp[-2].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-2].u_idf));
 }
-#line 1730 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1828 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 63: /* idf: IDENTIFIER MULT math  */
-#line 167 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 169 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                           {
      if(search_ID(strdup((yyvsp[-2].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-2].u_idf));
 }
-#line 1739 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1837 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 64: /* idf: IDENTIFIER DIV math  */
-#line 171 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 173 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                          {
-    {division=1;}
+    {}
      if(search_ID(strdup((yyvsp[-2].u_idf)))==NULL)
         printf("ERROR !In line %d the variable \"%s\" is undeclared.\n",line_num,(yyvsp[-2].u_idf));
 }
-#line 1749 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1847 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 79: /* assign: IDENTIFIER ASSIGN math INSTR_END  */
-#line 190 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 192 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
 {
     Sym* temp=search_ID(strdup((yyvsp[-3].u_idf)));
     if(temp==NULL)
@@ -1757,17 +1855,17 @@ yyreduce:
     if(temp!=NULL && is_constant(strdup((yyvsp[-3].u_idf))))
         printf("ERROR !In line %d the variable \"%s\" is a constant, you cannot change it.\n",line_num,(yyvsp[-3].u_idf));
 }
-#line 1761 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1859 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
   case 84: /* $@2: %empty  */
-#line 206 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 208 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
                                             {Curr_Scope = (yyvsp[0].u_idf); printf("change current scope to %s\n", (yyvsp[0].u_idf));}
-#line 1767 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1865 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
     break;
 
 
-#line 1771 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
+#line 1869 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.c"
 
       default: break;
     }
@@ -1991,7 +2089,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 209 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
+#line 211 "/home/rachid/Bureau/tp_compil_final/compil_final/test_Compil/src/parser.y"
 
 
 /* void yyerror(){ */
